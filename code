@@ -1,0 +1,56 @@
+#include <iostream> 
+using namespace std; 
+ 
+int n, W; 
+int wt[50], val[50];      // arrays for weights and values 
+int bestProfit = 0; 
+int bestChoice[50]; 
+int choice[50]; 
+ 
+void knapsack(int i, int currW, int currP) { 
+    if (currW > W) 
+        return; 
+ 
+    if (i == n) { 
+        if (currP > bestProfit) { 
+            bestProfit = currP; 
+            for (int k = 0; k < n; k++) 
+                bestChoice[k] = choice[k]; 
+        } 
+        return; 
+    } 
+ 
+    // include item i 
+    choice[i] = 1; 
+    knapsack(i + 1, currW + wt[i], currP + val[i]); 
+ 
+    // exclude item i 
+    choice[i] = 0; 
+    knapsack(i + 1, currW, currP); 
+} 
+ 
+int main() { 
+    cout << "Enter number of items: "; 
+    cin >> n; 
+ 
+    cout << "Enter weights:\n"; 
+    for (int i = 0; i < n; i++) 
+        cin >> wt[i]; 
+ 
+    cout << "Enter values:\n"; 
+    for (int i = 0; i < n; i++) 
+        cin >> val[i]; 
+ 
+    cout << "Enter knapsack capacity: "; 
+    cin >> W; 
+ 
+    knapsack(0, 0, 0); 
+ 
+    cout << "\nMaximum Profit = " << bestProfit << endl; 
+    cout << "Selected Items (1 = taken, 0 = not taken): "; 
+    for (int i = 0; i < n; i++) 
+        cout << bestChoice[i] << " "; 
+    cout << endl; 
+ 
+    return 0; 
+}

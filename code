@@ -54,3 +54,8 @@ int main() {
  
     return 0; 
 }
+
+
+Command to run cpp code
+Create object for file -->g++ file1.cpp -o objfile
+Execute file-->./objfile
